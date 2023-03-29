@@ -1,4 +1,4 @@
-name: env
+name: signature_env
 channels:
     - default
     - bioconda
