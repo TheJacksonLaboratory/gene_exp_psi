@@ -37,3 +37,9 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+resources/GTEx_Analysis_2017-06-05_v8_RSEMv1.3.0_transcript_expected_count.gct.gz
+resources/Homo_sapiens.GRCh38.109.gtf
+Snakefile~
+.snakemake/
+Mambaforge-Linux-x86_64.sh
