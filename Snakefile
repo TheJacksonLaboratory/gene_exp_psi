@@ -27,7 +27,7 @@ rule downloadReference:
   output:
     gtf = resources_dir+'/' + HTTP_FILES[0]
   params:
-    cluster_opts='--mem=12G -t 0:20',
+    cluster_opts='--mem=36G -t 0:20',
     resources_dir = resources_dir
   shell:
     """
