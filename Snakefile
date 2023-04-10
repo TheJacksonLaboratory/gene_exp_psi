@@ -54,6 +54,8 @@ rule create_signatures:
     gtex=resources_dir + '/' + HTTP_FILES[1]
   output:
     "after_exon_sig_next.RData"
+  params:
+    cluster_opts='--mem=64G -t 24:00
   conda:
     "env/signature_env.yaml"
   message:
