@@ -27,6 +27,7 @@ rule downloadReference:
   output:
     gtf = resources_dir+'/' + HTTP_FILES[0]
   params:
+    cluster_opts='--mem=12G -t 0:20'
     resources_dir = resources_dir
   shell:
     """
@@ -40,6 +41,7 @@ rule downloadGtex:
   output:
       gtex_rsem = resources_dir + '/' +  HTTP_FILES[1]
   params:
+      cluster_opts='--mem=12G -t 0:20'
       resources_dir = resources_dir
   shell:
       """
@@ -55,7 +57,7 @@ rule create_signatures:
   output:
     "after_exon_sig_next.RData"
   params:
-    cluster_opts='--mem=64G -t 24:00
+    cluster_opts='--mem=64G -t 24:00'
   conda:
     "env/signature_env.yaml"
   message:
