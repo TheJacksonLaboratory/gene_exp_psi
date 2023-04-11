@@ -27,8 +27,8 @@ resources_dir='resources'
 rule all:
   input:
     "after_exon_sig_next.RData",
-    expand("resources/{g}", g=GTEX_FILES)
-    #expand("types_{tissue_idx}.RData", tissue_idx = ["1"])
+    expand("resources/{g}", g=GTEX_FILES),
+    expand("types_{tissue_idx}.RData", tissue_idx = ["1"])
 
 
 rule downloadReference:
@@ -111,6 +111,7 @@ rule ge_frac_cor:
     gtex_transcript_tpm=resources_dir + '/' + GTEX_FILES[1],
     gtex_sample_attr=resources_dir + '/' + GTEX_FILES[2],
     after_exon="after_exon_sig_next.RData",
+   # idx="{tissue_idx}"
   output:
     "types_{tissue_idx}.RData"
   params:
@@ -120,4 +121,4 @@ rule ge_frac_cor:
   message:
     "====ge_frac_cor===="
   shell:
-    "Rscript scripts/ge_frac_cor.R {input.gtf} {input.gtex_transcript_tpm} {input.gtex_sample_attr} {input.after_exon} {input.tissue_idx} 2"
+    "Rscript scripts/ge_frac_cor.R {input.gtf} {input.gtex_transcript_tpm} {input.gtex_sample_attr} {input.after_exon} {wildcards.tissue_idx} 2"
