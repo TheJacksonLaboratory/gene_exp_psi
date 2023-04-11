@@ -28,7 +28,7 @@ rule all:
   input:
     "after_exon_sig_next.RData",
     expand("resources/{g}", g=GTEX_FILES),
-    expand("types_{tissue_idx}.RData", tissue_idx = ["1"])
+    expand("types_{tissue_idx}.RData", tissue_idx = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])
 
 
 rule downloadReference:
