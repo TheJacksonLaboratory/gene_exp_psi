@@ -17,10 +17,10 @@ function error_exit
 HTTP_FILES = ["Homo_sapiens.GRCh38.109.gtf",
               "GTEx_Analysis_2017-06-05_v8_RSEMv1.3.0_transcript_expected_count.gct.gz"]
 
-
-GTEX_FILES = ["GTEx_Analysis_2017-06-05_v8_RSEMv1.3.0_transcript_expected_count.gct.gz",
-              "GTEx_Analysis_2017-06-05_v8_RSEMv1.3.0_transcript_tpm.gct.gz",
-              "GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt"]
+# Note the base path for all GTEX files is https://storage.googleapis.com/gtex_analysis_v8/
+GTEX_FILES = ["rna_seq_data/GTEx_Analysis_2017-06-05_v8_RSEMv1.3.0_transcript_expected_count.gct.gz",
+              "rna_seq_data/GTEx_Analysis_2017-06-05_v8_RSEMv1.3.0_transcript_tpm.gct.gz",
+              "annotations/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt"]
 
 resources_dir='resources'
 
@@ -44,55 +44,25 @@ rule downloadReference:
     wget https://ftp.ensembl.org/pub/release-109/gtf/homo_sapiens/Homo_sapiens.GRCh38.109.gtf.gz || error_exit "gtf download failed"
     gunzip Homo_sapiens.GRCh38.109.gtf.gz || error_exit "GTF gunzip failed"
     """
-        
-rule downloadGtexExpected:
+
+rule download_gtex:
   output:
-    "resources/" + GTEX_FILES[0]
+      "resources/gtex/{gtex_file}"
   params:
-      cluster_opts='--mem=12G -t 0:20',
-      resources_dir = resources_dir
+      cluster_opts='--mem=12G -t 0:20'
   shell:
       """
-      mkdir -p {resources_dir}
-      cd {resources_dir}
-      wget https://storage.googleapis.com/gtex_analysis_v8/rna_seq_data/GTEx_Analysis_2017-06-05_v8_RSEMv1.3.0_transcript_expected_count.gct.gz  || error_exit "GTEX/RSEM download failed!"
-      """
-
-rule downloadGtexTpm:
-  output:
-    "resources/" + GTEX_FILES[1]
-  params:
-      cluster_opts='--mem=12G -t 0:20',
-      resources_dir = resources_dir
-  shell:
-      """
-      mkdir -p {resources_dir}
-      cd {resources_dir}
-      wget https://storage.googleapis.com/gtex_analysis_v8/rna_seq_data/GTEx_Analysis_2017-06-05_v8_RSEMv1.3.0_transcript_tpm.gct.gz  || error_exit "GTEX/RSEM TPM download failed!"
-      """
-
-
-
-rule downloadGtexSampleAttributes:
-  output:
-    "resources/" + GTEX_FILES[2]
-  params:
-      cluster_opts='--mem=12G -t 0:20',
-      resources_dir = resources_dir
-  shell:
-      """
-      mkdir -p {resources_dir}
-      cd {resources_dir}
-      wget https://storage.googleapis.com/gtex_analysis_v8/annotations/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt  || error_exit "GTEX sample attribs download failed!"
-      """
-
-    
+      mkdir -p resources/gtex
+      cd resources/gtex
+      bname=$(basename "${wildcards.gtex_file}")
+      wget https://storage.googleapis.com/gtex_analysis_v8/rna_seq_data/{wildcards.gtex_file} -O {bname}
+      """ 
 
     
 rule create_signatures:
   input:
     gtf=resources_dir + '/' + HTTP_FILES[0],
-    gtex=resources_dir + '/' + GTEX_FILES[0]
+    gtex="resources/gtex/' + GTEX_FILES[0]
   output:
     "after_exon_sig_next.RData"
   params:
@@ -108,8 +78,8 @@ rule create_signatures:
 rule ge_frac_cor:
   input:
     gtf=resources_dir + '/' + HTTP_FILES[0],
-    gtex_transcript_tpm=resources_dir + '/' + GTEX_FILES[1],
-    gtex_sample_attr=resources_dir + '/' + GTEX_FILES[2],
+    gtex_transcript_tpm="resources/gtex/' + GTEX_FILES[1],
+    gtex_sample_attr="resources/gtex/' + GTEX_FILES[2],
     after_exon="after_exon_sig_next.RData",
    # idx="{tissue_idx}"
   output:
