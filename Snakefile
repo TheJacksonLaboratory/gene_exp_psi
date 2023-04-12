@@ -61,8 +61,8 @@ rule download_gtex:
     
 rule create_signatures:
   input:
-    gtf=resources_dir + '/' + HTTP_FILES[0],
-    gtex="resources/gtex/' + GTEX_FILES[0]
+    gtf="resources/" + HTTP_FILES[0],
+    gtex="resources/gtex/" + GTEX_FILES[0]
   output:
     "after_exon_sig_next.RData"
   params:
@@ -78,8 +78,8 @@ rule create_signatures:
 rule ge_frac_cor:
   input:
     gtf=resources_dir + '/' + HTTP_FILES[0],
-    gtex_transcript_tpm="resources/gtex/' + GTEX_FILES[1],
-    gtex_sample_attr="resources/gtex/' + GTEX_FILES[2],
+    gtex_transcript_tpm="resources/gtex/" + GTEX_FILES[1],
+    gtex_sample_attr="resources/gtex/" + GTEX_FILES[2],
     after_exon="after_exon_sig_next.RData",
    # idx="{tissue_idx}"
   output:
