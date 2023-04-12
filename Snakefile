@@ -57,7 +57,7 @@ rule download_gtex:
       mkdir -p resources/gtex
       cd resources/gtex
       bname=$(basename "${wildcards.gtex_file}")
-      wget https://storage.googleapis.com/gtex_analysis_v8/rna_seq_data/{wildcards.gtex_file} -O {bname}
+      wget https://storage.googleapis.com/gtex_analysis_v8/rna_seq_data/{wildcards.gtex_file} -O $bname
       """ 
 
     
