@@ -27,7 +27,9 @@ resources_dir='resources'
 rule all:
   input:
     "after_exon_sig_next.RData",
-    expand("resources/{g}", g=GTEX_FILES),
+    "resources/gtex/GTEx_Analysis_2017-06-05_v8_RSEMv1.3.0_transcript_expected_count.gct.gz", 
+    "resources/gtex/GTEx_Analysis_2017-06-05_v8_RSEMv1.3.0_transcript_tpm.gct.gz",
+    "resources/gtex/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt",
     expand("types_{tissue_idx}.RData", tissue_idx = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])
 
 
