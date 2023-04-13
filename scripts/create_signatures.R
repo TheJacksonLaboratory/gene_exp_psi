@@ -11,7 +11,7 @@ if (length(args)!=2) {
 
 gtf_file=args[1]
 gtex_file=args[2]
-
+out_file=args[3]
 
 #Get exon names, transcript and gene IDs from the GTF file:
 # gtf_file should be the path to Homo_sapiens.GRCh38.91.gtf file
@@ -59,5 +59,5 @@ transcript.to.exon=transcript.to.exon[(num.exon.transcripts<num.gene.transcripts
 #keep only one exon for each signature
 transcript.to.exon=transcript.to.exon[transcript.to.exon[,2] %in% exon.signatures[!duplicated(exon.signatures[,2]),1],]
 
-save.image('after_exon_sig_next.RData')
+save.image(out_file)
 
