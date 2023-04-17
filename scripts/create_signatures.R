@@ -5,8 +5,8 @@ library(data.table)
 
 args = commandArgs(trailingOnly=TRUE)
 
-if (length(args)!=2) {
-  stop("Two arguments must be supplied (input file).n", call.=FALSE)
+if (length(args)!=3) {
+  stop("Three arguments must be supplied (GTF file, GTEX file and output filename).n", call.=FALSE)
 } 
 
 gtf_file=args[1]

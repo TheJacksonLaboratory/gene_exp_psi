@@ -88,7 +88,7 @@ rule create_signatures:
   output:
     outfile="resources/after_exon_sig_next.RData"
   params:
-    cluster_opts='--mem=64G -t 24:00'
+    cluster_opts='--mem=64G -t 48:00:00'
   conda:
     "env/signature_env.yaml"
   message:
