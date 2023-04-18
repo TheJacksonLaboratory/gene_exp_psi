@@ -103,7 +103,6 @@ rule ge_frac_cor:
     gtex_transcript_tpm="resources/GTEx_Analysis_2017-06-05_v8_RSEMv1.3.0_transcript_tpm.gct.gz",
     gtex_sample_attr="resources/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt",
     after_exon="resources/after_exon_sig_next.RData",
-   # idx="{tissue_idx}"
   output:
     "types_{tissue_idx}.RData"
   params:
