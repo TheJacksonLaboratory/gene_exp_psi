@@ -44,3 +44,6 @@ Snakefile~
 .snakemake/
 Mambaforge-Linux-x86_64.sh
 after_exon_sig_next.RData
+
+# virtual environments
+gepenv/

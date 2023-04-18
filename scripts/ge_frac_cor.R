@@ -19,10 +19,10 @@ library(data.table)
 library(parallel)
 
 
-tissues=c('Lung','Spleen','Thyroid','Brain - Cortex','Adrenal Gland','Breast - Mammary Tissue','Heart - Left Ventricle',
-          'Liver','Pituitary','Pancreas')
+tissues=c('Lung', 'Spleen', 'Thyroid', 'Brain - Cortex', 'Adrenal Gland', 
+          'Breast - Mammary Tissue', 'Heart - Left Ventricle', 'Liver', 'Pituitary', 'Pancreas')
 
-load('after_exon_sig_next.RData')
+load(after_exon_sig_next)
 
 gtf.file=gtf.file[gtf.file$V3=='exon',]
 exon.names=paste(gtf.file$V1,gtf.file$V4,gtf.file$V5,gtf.file$V7,sep='|')
@@ -36,7 +36,7 @@ gene.ids=gsub("\"",'',gene.ids)
 gtex.counts=fread(gtex_tpm_file, data.table = F)
 meta.data=read.csv(gtex_sample_attributes, sep='\t', header=T)
 
-meta.data=meta.data[which(meta.data$SMTSD==tissues[tissue.index]),]
+meta.data=meta.data[which(meta.data$SMTSD==tissues[tissue_index]),]
 gtex.counts=gtex.counts[,c(1,2,which(colnames(gtex.counts) %in% meta.data$SAMPID))]
 meta.data=meta.data[meta.data$SAMPID %in% colnames(gtex.counts),]
 meta.data=meta.data[match(meta.data$SAMPID,colnames(gtex.counts)[-c(1,2)]),]
@@ -46,7 +46,7 @@ sum(meta.data$SAMPID!=colnames(gtex.counts)[-c(1,2)])
 gtex.counts$transcript_id=gsub('\\.[0-9]*','',gtex.counts$transcript_id)
 gtex.counts$gene_id=gsub('\\.[0-9]*','',gtex.counts$gene_id)
 
-print(tissues[tissue.index])
+print(tissues[tissue_index])
 
 exon.proportions=do.call(rbind,lapply(unique(transcript.to.exon[,2]),function(x){
   
@@ -119,7 +119,7 @@ cor.vals=do.call(rbind,lapply(1:nrow(exon.proportions),function(i){
 
 colnames(cor.vals)=c('coef','pval','r.squared')
 
-save.image(paste0('types_',tissue.index,'.RData'))
+save.image(paste0('types_',tissue_index,'.RData'))
 
 
 
