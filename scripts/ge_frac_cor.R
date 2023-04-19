@@ -119,7 +119,7 @@ cor.vals=do.call(rbind,lapply(1:nrow(exon.proportions),function(i){
 
 colnames(cor.vals)=c('coef','pval','r.squared')
 
-save.image(paste0('types_',tissue_index,'.RData'))
+save.image(paste0('exon_results/types_',tissue_index,'.RData'))
 
 
 
