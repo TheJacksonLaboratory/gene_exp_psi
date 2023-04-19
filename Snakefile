@@ -24,7 +24,7 @@ rule all:
     "resources/GTEx_Analysis_2017-06-05_v8_RSEMv1.3.0_transcript_tpm.gct.gz",
     "resources/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt",
     "resources/after_exon_sig_next.RData",  
-    expand("types_{tissue_idx}.RData", tissue_idx = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])
+    expand("exon_results/types_{tissue_idx}.RData", tissue_idx = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])
 
 
 rule downloadReference:
@@ -88,7 +88,7 @@ rule create_signatures:
   output:
     outfile="resources/after_exon_sig_next.RData"
   params:
-    cluster_opts='--mem=64G -t 48:00:00'
+    cluster_opts='--mem-per-cpu=32G -t 48:00:00'
   conda:
     "env/signature_env.yaml"
   message:
@@ -104,9 +104,9 @@ rule ge_frac_cor:
     gtex_sample_attr="resources/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt",
     after_exon="resources/after_exon_sig_next.RData",
   output:
-    "types_{tissue_idx}.RData"
+    "exon_results/types_{tissue_idx}.RData"
   params:
-    cluster_opts='--mem=64G -t 4:00'
+    cluster_opts='--mem-per-cpu=32G -t 48:00:00'   
   conda:
     "env/gefrac_env.yaml"
   message:
