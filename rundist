@@ -10,7 +10,7 @@ shift
 
 mkdir -p slurm
 
-snakemake -j ${JOB_COUNT} \
+snakemake -j ${JOB_COUNT} -c ${JOB_COUNT} \
     --nt --ri -k --max-jobs-per-second 2 -w 60 \
     --jobname "{rulename}.{jobid}"  \
     --latency-wait 60 \
