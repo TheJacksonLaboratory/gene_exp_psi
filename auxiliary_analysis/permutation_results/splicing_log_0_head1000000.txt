@@ -1,0 +1,71 @@
+################################################################### Parameters
+
+iterations                 1000000
+p_threshold                   0.05
+test_threshold_rel            0.05
+test_threshold_abs            0.50
+threads                         90
+search_params             --all --frequencies data/fabian22/tiny/all_tiny.bed.fa --input data/splicing/epd_group0_hg38.txt --output output/splicing_output.txt --threads 90 --useconfig "logfile_name found_elements_0_0.txt"
+
+Time                      2023-04-22T17:25:19
+Run FABIAN:                  12.10 seconds
+Run permutations:            75.86 seconds
+Compute results:              1.35 seconds
+
+Total elements                  16
+Completed tests                 14        ( 48 possible,  29.17%)
+Adjusted p                3.57e-03
+
+################################################################### Summary
+
+BASE:0
+  AnyTags    : 99.3     I p=     -      II p=     - 
+  BREd       : 16.4    <I p=0.0028*    <II p=0.0559 
+  BREu       : 15.1    >I p=0.0862      II p=     - 
+  Bridge     :  2.2     I p=     -      II p=     - 
+  Broad      : 90.8     I p=     -      II p=     - 
+  CpG        : 61.3    <I p=0.0010*    <II p=0.0000*
+  DCE        :  2.2     I p=     -      II p=     - 
+  DCE3       : 14.3     I p=     -      II p=     - 
+  DPE        : 12.6     I p=     -      II p=     - 
+  Inr        : 39.7     I p=     -      II p=     - 
+  MTE        :  0.9     I p=     -      II p=     - 
+  Sharp      :  8.6     I p=     -     >II p=0.1624 
+  TATA       : 10.0    >I p=0.0005*    >II p=0.0000*
+  TCT        : 12.4     I p=     -     >II p=0.0961 
+  XCPE1      :  3.1     I p=     -     >II p=0.0766 
+  XCPE2      :  2.2     I p=     -     <II p=0.0360 
+BASE:I
+  AnyTags    : 99.9    (   0.6)    <rnd       -    >rnd       -     II p=     - 
+  BREd       : 19.3    (   2.9)    <rnd    2788    >rnd  997201    >II p=0.1781 
+  BREu       : 13.8    (  -1.3)    <rnd  913391    >rnd   86244    <II p=0.2580 
+  Bridge     :  2.3    (   0.1)    <rnd       -    >rnd       -     II p=     - 
+  Broad      : 91.8    (   1.0)    <rnd       -    >rnd       -     II p=     - 
+  CpG        : 65.4    (   4.1)    <rnd    1035    >rnd  998965     II p=     - 
+  DCE        :  2.6    (   0.4)    <rnd       -    >rnd       -     II p=     - 
+  DCE3       : 14.3    (  -0.0)    <rnd       -    >rnd       -     II p=     - 
+  DPE        : 12.4    (  -0.2)    <rnd       -    >rnd       -     II p=     - 
+  Inr        : 40.4    (   0.6)    <rnd       -    >rnd       -     II p=     - 
+  MTE        :  0.8    (  -0.1)    <rnd       -    >rnd       -     II p=     - 
+  Sharp      :  8.1    (  -0.4)    <rnd       -    >rnd       -     II p=     - 
+  TATA       :  7.4    (  -2.6)    <rnd  999501    >rnd     499    >II p=0.1519 
+  TCT        : 11.8    (  -0.6)    <rnd       -    >rnd       -     II p=     - 
+  XCPE1      :  2.6    (  -0.5)    <rnd       -    >rnd       -     II p=     - 
+  XCPE2      :  2.7    (   0.5)    <rnd       -    >rnd       -     II p=     - 
+BASE:II
+  AnyTags    : 99.9    (   0.5)    <rnd       -    >rnd       -    (  -0.1)    <rnd       -    >rnd       -
+  BREd       : 18.1    (   1.6)    <rnd   55921    >rnd  944068    (  -1.3)    <rnd  821930    >rnd  178059
+  BREu       : 14.6    (  -0.5)    <rnd       -    >rnd       -    (   0.8)    <rnd  258027    >rnd  741608
+  Bridge     :  2.0    (  -0.2)    <rnd       -    >rnd       -    (  -0.3)    <rnd       -    >rnd       -
+  Broad      : 92.1    (   1.3)    <rnd       -    >rnd       -    (   0.2)    <rnd       -    >rnd       -
+  CpG        : 66.4    (   5.1)    <rnd      41    >rnd  999959    (   1.0)    <rnd       -    >rnd       -
+  DCE        :  2.4    (   0.2)    <rnd       -    >rnd       -    (  -0.1)    <rnd       -    >rnd       -
+  DCE3       : 13.8    (  -0.5)    <rnd       -    >rnd       -    (  -0.5)    <rnd       -    >rnd       -
+  DPE        : 13.0    (   0.4)    <rnd       -    >rnd       -    (   0.6)    <rnd       -    >rnd       -
+  Inr        : 38.8    (  -1.0)    <rnd       -    >rnd       -    (  -1.6)    <rnd       -    >rnd       -
+  MTE        :  0.9    (  -0.0)    <rnd       -    >rnd       -    (   0.1)    <rnd       -    >rnd       -
+  Sharp      :  7.8    (  -0.7)    <rnd  836696    >rnd  162445    (  -0.3)    <rnd       -    >rnd       -
+  TATA       :  6.4    (  -3.6)    <rnd 1000000    >rnd       0    (  -1.1)    <rnd  848083    >rnd  151917
+  TCT        : 11.3    (  -1.2)    <rnd  903513    >rnd   96067    (  -0.6)    <rnd       -    >rnd       -
+  XCPE1      :  2.4    (  -0.7)    <rnd  922281    >rnd   76559    (  -0.2)    <rnd       -    >rnd       -
+  XCPE2      :  3.0    (   0.8)    <rnd   35956    >rnd  963530    (   0.3)    <rnd       -    >rnd       -
