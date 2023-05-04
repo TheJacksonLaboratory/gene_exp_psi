@@ -62,7 +62,7 @@ def get_significant_and_nonsig_tfbs():
     has been created.
     """
     sig_motifs = set()
-    all_motifs = set()
+    non_sig_motifs = set()
     with open("tf_enrichments.tsv") as f:
         reader = DictReader(f, delimiter='\t')
         for row in reader:
@@ -70,11 +70,34 @@ def get_significant_and_nonsig_tfbs():
             t1_vs_t0 = row['t1.vs.t0']
             t2_vs_t0 = row['t2.vs.t0']
             t2_vs_t1 = row['t2.vs.t1']
-            all_motifs.add(motif)
             if ">" in t2_vs_t0 or "<" in t2_vs_t0 or ">" in t1_vs_t0 or "<" in t1_vs_t0:
                 sig_motifs.add(motif)
-    return sig_motifs, all_motifs
+            else:
+                non_sig_motifs.add(motif)
+    return sig_motifs, non_sig_motifs
 
+def get_rbp_interactions_and_list_of_proteins(interaction_list, ensp2sym_d, rbp_set):
+    """
+    Go through the interaction list from STRING. Record a set of
+    all proteins that take part in interactions, and also record the
+    proteins that interact with an RNA-binding protein
+    """
+    all_proteins = set()
+    rbp_binders = set()
+
+    for i in interaction_list:
+        p1 = i[0]
+        p2 = i[1]
+        if p1 in ensp2sym_d and p2 in ensp2sym_d:
+            s1 = ensp2sym_d.get(p1)
+            s2 = ensp2sym_d.get(p2)
+            if p1 in rbp_set:
+                rbp_binders.add(s2)
+            if p2 in rbp_set:
+                rbp_binders.add(s1)
+            all_proteins.add(s1)
+            all_proteins.add(s2)
+    return rbp_binders, all_proteins
 
 
 parser = ArgumentParser()
@@ -88,34 +111,23 @@ ensp2sym = get_gene_symbols(fname=args.protein_info)
 rbp_set = get_rnabp()
 interactions = get_ppis(fname=args.physical)
 
-proteins = set()
-rbp_binders = set()
+rbp_binders, all_proteins = get_rbp_interactions_and_list_of_proteins(interaction_list=interactions,
+                                                                      ensp2sym_d=ensp2sym, rbp_set=rbp_set)
 
-for i in interactions:
-    p1 = i[0]
-    p2 = i[1]
-    if p1 in ensp2sym and p2 in ensp2sym:
-        s1 = ensp2sym.get(p1)
-        s2 = ensp2sym.get(p2)
-        if p1 in rbp_set:
-            rbp_binders.add(s2)
-        if p2 in rbp_set:
-            rbp_binders.add(s1)
-        proteins.add(s1)
-        proteins.add(s2)
 
-n_prot = len(proteins)
+
+n_prot = len(all_proteins)
 n_rbp_binders = len(rbp_binders)
 
-sig_motifs, all_motifs = get_significant_and_nonsig_tfbs()
+sig_motifs, non_sig_motifs = get_significant_and_nonsig_tfbs()
 
 
 
 print(f"Got {len(interactions)} PPIs")
 print(f"Got {len(ensp2sym)} ENSEMBL to SYm maps")
 print(f"Got {len(rbp_set)} RBPs")
-print(f"Got {len(all_motifs)} TFs of which {len(sig_motifs)} bind RBPs")
-global_rate = 100 * len(rbp_set) / len(proteins)
+print(f"Got {len(non_sig_motifs)} TFs of which {len(sig_motifs)} bind RBPs")
+global_rate = 100 * len(rbp_set) / len(all_proteins)
 print(f"Global RBP binding rate {global_rate:.1f}%")
-tf_rate = 100 * len(sig_motifs) / len(all_motifs)
+tf_rate = 100 * len(sig_motifs) / len(non_sig_motifs)
 print(f"Group 1/2 TF RBP binding rate {tf_rate:.1f}%")
