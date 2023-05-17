@@ -1,0 +1,6 @@
+
+This directory contain the files for the Snakemake pipeline.  
+In order to run it on sumner, place all the files in the same directory, and submit the file run_types_pipeline.sh using the high_mem partition. 
+The singularity image file for sumner was too big to I put it in Google drive instead:  
+
+https://drive.google.com/drive/folders/1ql3OoMwh50wvh3BH7vvCiU8-MTOkvmga?usp=share_link
