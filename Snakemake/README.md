@@ -1,10 +1,12 @@
-This directory contain the files for the Snakemake pipeline.  
+# README
+
+This directory contain the files for the Snakemake pipeline. 
 
 we provide a script to submit it to a SLURM system, but it is suitable for any high performance computing that provides a high memory partition.
 
 In order to run it using SLURM, place all the files in the same directory, and submit the file run_types_pipeline.sh using the high_mem partition. 
 
-A singularity container is available on Google drive instead:  
+A singularity container is available on Google drive at this link: 
 
 https://drive.google.com/drive/folders/1ql3OoMwh50wvh3BH7vvCiU8-MTOkvmga?usp=share_link
 
@@ -31,4 +33,4 @@ R --slave -e 'install.packages("R.utils")'
 
 
 
-Any environment that supports the same software would run the pipeline.  The output is created in the same directory.  Images are outputted as PDF files.
+Any environment that supports the same software would run the pipeline. The output is created in the same directory. Images are outputted as PDF files.
