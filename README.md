@@ -44,3 +44,27 @@ R --slave -e 'install.packages("R.utils")'
 Any environment that supports the same software would run the pipeline. The output is created in the same directory. Images are outputted as PDF files.
 
 
+# permute
+
+permute is a simple C++ application that performs the permutation analysis described in "Alternative splicing is coupled to gene expression in a subset of variably expressed genes" (See section "Enriched motif testing" in the Methods).
+
+The source code and some additional files can be found in the subdirectory "permutations". To run the code, first download the input file ``motif_locations.zip`` from https://zenodo.org/deposit/8030743 in the same directory as permute.cc. The motif locations directory contains
+the locations and sequences of exons and promoters found to be UHP or DHP (see main manuscript and methods).
+
+
+To build the program, enter the following command
+
+
+```
+g++ -pthread -o permute permute.cc
+```
+
+Alternatively, use the Makefile.
+
+The subfolder uhp_dhp_output contains output files with positions and sequences of UHP, DHP, and type 0 exons.
+
+## Running permute
+
+```
+./permute <num_threads> 1000000
+```
