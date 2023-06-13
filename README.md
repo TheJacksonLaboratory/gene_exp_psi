@@ -16,7 +16,7 @@ In order to run it using SLURM, place all the files in the same directory, and s
 
 A singularity container is available on Google drive at this link: 
 
-https://drive.google.com/drive/folders/1ql3OoMwh50wvh3BH7vvCiU8-MTOkvmga?usp=share_link
+https://drive.google.com/file/d/1tjEopsK8g6JChiBbI51DXgIKTcgdD0NI/view?usp=sharing
 
 The following definitions file was used for creating the container:
 ```
