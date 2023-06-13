@@ -19,7 +19,7 @@ A singularity container is available on Google drive at this link:
 https://drive.google.com/drive/folders/1ql3OoMwh50wvh3BH7vvCiU8-MTOkvmga?usp=share_link
 
 The following definitions file was used for creating the container:
-
+```
 Bootstrap: docker
 From: continuumio/miniconda3
 
@@ -38,7 +38,7 @@ R --slave -e 'install.packages("intervals")'
 R --slave -e 'BiocManager::install("seqinr")'
 R --slave -e 'BiocManager::install("ggpubr")'
 R --slave -e 'install.packages("R.utils")'
-
+```
 
 
 Any environment that supports the same software would run the pipeline. The output is created in the same directory. Images are outputted as PDF files.
@@ -48,7 +48,7 @@ Any environment that supports the same software would run the pipeline. The outp
 
 permute is a simple C++ application that performs the permutation analysis described in "Alternative splicing is coupled to gene expression in a subset of variably expressed genes" (See section "Enriched motif testing" in the Methods).
 
-The source code and some additional files can be found in the subdirectory "permutations". To run the code, first download the input file ``motif_locations.zip`` from https://zenodo.org/deposit/8030743 in the same directory as permute.cc. The motif locations directory contains
+The source code and some additional files can be found in the subdirectory "permutations". To run the code, first download the input file ``motif_locations.zip`` from https://zenodo.org/record/8030743 in the same directory as permute.cc. The motif locations directory contains
 the locations and sequences of exons and promoters found to be UHP or DHP (see main manuscript and methods).
 
 
@@ -61,10 +61,11 @@ g++ -pthread -o permute permute.cc
 
 Alternatively, use the Makefile.
 
-The subfolder uhp_dhp_output contains output files with positions and sequences of UHP, DHP, and type 0 exons.
 
 ## Running permute
 
 ```
-./permute <num_threads> 1000000
+./permute <repeat_id={0,1,2}> <num_threads> 1000000
 ```
+
+Note that 0 stands for core promoter elements (CPE), 1 for transcription factor flexible models (TFFM), and 2 for RNA binding protein (RBP) motifs.
