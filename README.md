@@ -41,6 +41,7 @@ R --slave -e 'install.packages("R.utils")'
 ```
 
 
+A tutorial about buildig singularity containers can be found here:  https://singularity-tutorial.github.io/03-building/
 Any environment that supports the same software would run the pipeline. The output is created in the same directory. Images are outputted as PDF files.
 
 
