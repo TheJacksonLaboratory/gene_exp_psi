@@ -2,7 +2,7 @@
 // Methods.
 // Build the executable using the command: g++ -pthread -o permute permute.cc
 // Retrieve and extract motif locations from:
-// genecascade.org/downloads/gene_exp_psi/motif_locations.zip
+// https://zenodo.org/record/8030743
 // Available values for repeat_id are as follows: 0 (CPEs), 1 (TFFMs), 2 (RBPs)
 
 #include <algorithm>
