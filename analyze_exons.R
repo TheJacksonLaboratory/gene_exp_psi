@@ -6,10 +6,10 @@ library(seqinr)
 
 #create a matrix that will contain the information about the exons:
 
-exons.tab=matrix(nrow=0,ncol=17)
+exons.tab=matrix(nrow=0,ncol=18) #***
 
 colnames(exons.tab)=c('Name','Type','Chr','Start','End','UpIntronStart','UpIntronEnd','DownIntronStart','DownIntronEnd','Coef','Slope','ExonNumber',
-                      'NumExons','TranscriptsContain','TotalTranscripts','GeneId','Tissue')
+                      'NumExons','TranscriptsContain','TotalTranscripts','GeneId','Tissue','CD1cor') #***
 
 tissues=c('Spleen','Thyroid','Brain - Cortex','Adrenal Gland','Breast - Mammary Tissue','Heart - Left Ventricle',
           'Liver','Pituitary','Pancreas') #Lung
@@ -20,6 +20,8 @@ for (tissue in tissues)
 {
   load(paste0('types_',tissue,'.RData'))  #load the results for the relevant tissue
 
+  cyclin.d1=colSums(gtex.counts[gtex.counts$gene_id=='ENSG00000110092',-c(1,2)]) #***
+  
   rm(gtex.counts)  #free memory 
 
   rm(transcript.to.exon)
@@ -93,12 +95,14 @@ for (tissue in tissues)
       #fit a linear model to get the relevant stats for the exon
       fit.mod=summary(lm(exon.gene.counts[exon.num,]~exon.proportions[exon.num,],na.action='na.omit'))
       
+      cd1.cor=cor(cyclin.d1,exon.proportions[exon.num,]) #***
+      
       #add all the exon info
       exons.tab=rbind(exons.tab,
                       c(next.exon,exon.type,exon.chr,exon.start,exon.end,up.intron.start,up.intron.end,down.intron.start,down.intron.end,
                         fit.mod$coefficients[1,1],fit.mod$coefficients[2,1],exon.loc,nrow(merged.exons),
                         paste(unique(transcript.ids[exon.names==next.exon & gene.ids==exon.gene]),collapse = ','), length(unique(transcript.ids[gene.ids==exon.gene]))
-                        ,exon.gene,tissue))
+                        ,exon.gene,tissue,cd1.cor))#***
       
     }
     
